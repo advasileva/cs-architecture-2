@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc ./main.s ./form_array.s -o ./asm.exe
+gcc ./main.s ./find.s -o ./asm.exe

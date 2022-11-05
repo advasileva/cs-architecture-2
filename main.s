@@ -44,12 +44,6 @@ timeDelta:
 .LC3:
 	.string	"output"
 .LC4:
-	.string	"%d "
-.LC5:
-	.string	"%d"
-.LC6:
-	.string	"HW%s"
-.LC7:
 	.string	"Time delta: %ld ns\n"
 	.text
 	.globl	main
@@ -148,32 +142,19 @@ main:
 	cdqe
 	mov	BYTE PTR -100064[rbp+rax], dl
 	mov	eax, DWORD PTR -12[rbp]
-	lea	edx, 1[rax]
-	mov	DWORD PTR -12[rbp], edx
 	cdqe
 	movzx	eax, BYTE PTR -100064[rbp+rax]
-	movsx	edx, al
-	mov	rax, QWORD PTR -40[rbp]
-	lea	rsi, .LC4[rip]
-	mov	rdi, rax
-	mov	eax, 0
-	call	fprintf@PLT
+	movsx	eax, al
+	mov	rdx, QWORD PTR -40[rbp]
+	mov	rsi, rdx
+	mov	edi, eax
+	call	fputc@PLT
 	add	DWORD PTR -12[rbp], 1
 .L7:
 	mov	eax, DWORD PTR -12[rbp]
 	cmp	eax, DWORD PTR -4[rbp]
 	jl	.L8
 .L6:
-	mov	eax, DWORD PTR -4[rbp]
-	mov	esi, eax
-	lea	rdi, .LC5[rip]
-	mov	eax, 0
-	call	printf@PLT
-	lea	rax, -100064[rbp]
-	mov	rsi, rax
-	lea	rdi, .LC6[rip]
-	mov	eax, 0
-	call	printf@PLT
 	lea	rax, -100080[rbp]
 	mov	rsi, rax
 	mov	edi, 1
@@ -207,7 +188,7 @@ main:
 	mov	QWORD PTR -56[rbp], rax
 	mov	rax, QWORD PTR -56[rbp]
 	mov	rsi, rax
-	lea	rdi, .LC7[rip]
+	lea	rdi, .LC4[rip]
 	mov	eax, 0
 	call	printf@PLT
 	cmp	DWORD PTR -8[rbp], -1

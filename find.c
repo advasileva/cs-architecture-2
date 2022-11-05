@@ -2,7 +2,7 @@ int find(int n, int size, char *str){
     int flag;
     int i;
     int j;
-    for (i = size - n - 1; i >= 0; i--)
+    for (i = size - n; i >= 0; i--)
     {
         flag = 1;
         for (j = 0; j < n - 1; j++)

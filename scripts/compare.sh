@@ -1,7 +1,7 @@
 #!/bin/bash
 
-max=4
-count=100000
+max=6
+count=10000000
 for i in `seq 1 $max`
 do
     echo "Test $i"

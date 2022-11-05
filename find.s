@@ -11,7 +11,6 @@ find:
 	mov	QWORD PTR -32[rbp], rdx
 	mov	eax, DWORD PTR -24[rbp]
 	sub	eax, DWORD PTR -20[rbp]
-	sub	eax, 1
 	mov	DWORD PTR -8[rbp], eax
 	jmp	.L2
 .L9:

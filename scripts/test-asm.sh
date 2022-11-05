@@ -1,6 +1,6 @@
 #!/bin/bash
 
-max=4
+max=6
 for i in `seq 1 $max`
 do
     echo "Test $i"

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 int64_t timeDelta(struct timespec finish, struct timespec start)
 {
@@ -26,30 +27,46 @@ int main(int argc, char** argv) {
     int size;
     int result;
     int i;
-    int ch;
-    char str[100000];
+    char ch;
+    int max = 1000000;
+    char str[max + 1];
     struct timespec start;
     struct timespec finish;
     int64_t time_delta;
     FILE *input, *output;
 
-
+    if (argc < 4) {
+        printf("Incorrect input\n");
+        return 0;
+    }
     count = atoi(argv[1]);
     n = atoi(argv[2]);
     if (atoi(argv[3]) == 0) {
+        if (argc < 5 || access(argv[4], F_OK) != 0) {
+            printf("Incorrect input\n");
+            return 0;
+        }
         input = fopen(argv[4], "r");
         output = fopen(argv[5], "w");
         size = 0;
         do {
+            if (size > max) {
+                printf("Incorrect input\n");
+                return 0;
+            }
             ch = fgetc(input);
             str[size++] = ch;
         } while(ch != -1);
         size--;
-        str[i-1] = '\0';
+        str[size] = '\0';
     } else {
         input = fopen("input", "w");
         output = fopen("output", "w");
         size = atoi(argv[4]);
+        if (size > max) {
+            printf("Incorrect input\n");
+            return 0;
+        }
         for(i = 0; i < size; i++) {
             str[i] = rand() % 128;
             fprintf(input, "%c", str[i]);

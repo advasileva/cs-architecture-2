@@ -50,38 +50,21 @@ main:								# метка функции "main"
 	mov	eax, DWORD PTR -44[rbp]		# получаем значение max
 	add	eax, 1						# прибавляем 1
 	movsx	rdx, eax				# записываем значение в rdx
-	mov	QWORD PTR -56[rbp], rdx		# кладём на стек: указатель на str[max + 1] (8 byte)
-	mov	edx, 16						#
-	sub	rdx, 1						#
-	add	rax, rdx					#
-	mov	ecx, 16						#
-	mov	edx, 0						#
-	div	rcx							#
-	imul	rax, rax, 16			#
-	mov	rcx, rax					#
-	and	rcx, -4096					#
-	mov	rdx, rsp					#
-	sub	rdx, rcx					#
-.L4:								#
-	cmp	rsp, rdx					#
-	je	.L5							#
-	sub	rsp, 4096					#
-	or	QWORD PTR 4088[rsp], 0		#
-	jmp	.L4							#
-.L5:								#
-	mov	rdx, rax					#
-	and	edx, 4095					#
-	sub	rsp, rdx					#
-	mov	rdx, rax					#
-	and	edx, 4095					#
-	test	rdx, rdx				#
-	je	.L6							#
-	and	eax, 4095					#
-	sub	rax, 8						#
-	add	rax, rsp					#
-	or	QWORD PTR [rax], 0			#
-.L6:								#
-	mov	QWORD PTR -64[rbp], rsp		# 
+	mov	ecx, 16						# /
+	mov	edx, 0						# начало
+	div	rcx							# резервирования
+	imul	rax, rax, 16			# памяти
+	mov	rcx, rax					# для
+	and	rcx, -4096					# строки
+	mov	rdx, rsp					# str
+	sub	rdx, rcx					# \
+.L4:								# метка ".L4" - продолжение резервирования памяти для строки
+	cmp	rsp, rdx					# сравниваем rsp и rdx
+	je	.L6							# переходим к .L4
+	sub	rsp, 4096					# продолжаем резервирование
+	jmp	.L4							# переходим к .L4
+.L6:								# метка ".L6" - продолжение программы
+	mov	QWORD PTR -64[rbp], rsp		# кладём на стек: указатель на str[max + 1] (8 byte)
 	cmp	DWORD PTR -132[rbp], 3		# проверяем, что argc < 4
 	jg	.L7							# продолжаем работу
 	lea	rdi, .LC0[rip]				# загружаем строку "Incorrect input"

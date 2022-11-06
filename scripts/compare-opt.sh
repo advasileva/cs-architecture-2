@@ -1,7 +1,7 @@
 #!/bin/bash
 
 declare -a arr=("non" "o0" "o1" "o2" "o3" "ofast" "os" "my")
-
+count=10000000
 for i in "${arr[@]}"
 do
     echo "~~~Test $i-optimization~~~"
@@ -13,6 +13,6 @@ do
     find_size=$(stat --printf="%s\n" optimization/find_$i.s)
     sum_size=$(expr $main_size + $find_size)
     echo "Size in bytes: $sum_size"
-    ./optimization/$i.exe 0 tests/test4.in output
+    ./optimization/$i.exe $count 4 0 tests/test6.in output
     echo
 done

@@ -3,11 +3,9 @@ make-asm: # Лучше не запускать, потому что будет �
 	bash ./scripts/make-asm.sh find
 
 test.asm:
-	make compile.asm
 	bash ./scripts/test-asm.sh
 
 test.c:
-	make compile.c
 	bash ./scripts/test-c.sh
 
 test:
@@ -29,7 +27,6 @@ compile:
 	make compile.c
 
 compare:
-	make compile
 	bash ./scripts/compare.sh
 
 rand.asm:
